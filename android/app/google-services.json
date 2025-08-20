@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1090065077764",
+    "project_id": "tennis-ec27b",
+    "storage_bucket": "tennis-ec27b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090065077764:android:182b27ebc9e6d9f75d4751",
+        "android_client_info": {
+          "package_name": "com.example.tennis"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXMUsrS9R4VWQiEDmGApU7FQnI-k02aGo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
