@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tennis_training_app/controllers/auth_controller.dart';
 import 'package:tennis_training_app/core/app_colors.dart';
 import 'package:tennis_training_app/widgets/custom_text_field.dart';
+import 'package:tennis_training_app/models/user_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -26,29 +27,38 @@ class _LoginScreenState extends State<LoginScreen> {
 
       try {
         final authController = Provider.of<AuthController>(context, listen: false);
-        await authController.loginUser(
+        UserModel? user = await authController.loginUser(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
-        // Navigate to home screen on success
-        // Navigator.pushReplacementNamed(context, '/home');
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Login successful!'),
-            backgroundColor: Colors.green,
-          ),
-        );
+
+        if (user != null) {
+          // Login successful - navigate to HomeScreen
+          if (mounted) {
+            Navigator.pushReplacementNamed(context, '/home');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Welcome back, ${user.firstName}!'),
+                backgroundColor: Colors.green,
+              ),
+            );
+          }
+        }
       } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Login failed: $e'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Login failed: $e'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
       } finally {
-        setState(() {
-          _isLoading = false;
-        });
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
       }
     }
   }

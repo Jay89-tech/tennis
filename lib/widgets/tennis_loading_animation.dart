@@ -3,7 +3,16 @@ import 'package:lottie/lottie.dart';
 import 'package:tennis_training_app/core/app_constants.dart';
 
 class TennisLoadingAnimation extends StatefulWidget {
-  const TennisLoadingAnimation({Key? key}) : super(key: key);
+  final double size;
+  final Color? ballColor;
+  final Color? racketColor;
+
+  const TennisLoadingAnimation({
+    super.key,
+    this.size = 100,
+    this.ballColor,
+    this.racketColor,
+  });
 
   @override
   State<TennisLoadingAnimation> createState() => _TennisLoadingAnimationState();
@@ -34,6 +43,7 @@ class _TennisLoadingAnimationState extends State<TennisLoadingAnimation>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // Tennis Racket Animation
           Lottie.asset(
             AppConstants.racketAnimation,
             controller: _racketController,
@@ -42,10 +52,13 @@ class _TennisLoadingAnimationState extends State<TennisLoadingAnimation>
                 ..duration = composition.duration
                 ..repeat(reverse: true);
             },
-            height: 100,
-            width: 100,
+            height: widget.size,
+            width: widget.size,
+            filterQuality: FilterQuality.high,
           ),
           const SizedBox(height: 20),
+          
+          // Tennis Ball Animation
           Lottie.asset(
             AppConstants.ballAnimation,
             controller: _ballController,
@@ -54,8 +67,9 @@ class _TennisLoadingAnimationState extends State<TennisLoadingAnimation>
                 ..duration = composition.duration
                 ..repeat(reverse: true);
             },
-            height: 60,
-            width: 60,
+            height: widget.size * 0.6,
+            width: widget.size * 0.6,
+            filterQuality: FilterQuality.high,
           ),
         ],
       ),
