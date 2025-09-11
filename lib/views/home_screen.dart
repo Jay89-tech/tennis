@@ -9,6 +9,7 @@ import 'package:tennis_training_app/services/user_service.dart';
 import 'package:tennis_training_app/widgets/tennis_loading_animation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -123,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
       case 2:
         return _buildMatchesSection();
       case 3:
-        return _buildProfileSection();
+        return _buildProfileSection(context);
       default:
         return _buildDashboard();
     }
@@ -484,17 +485,25 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildProfileSection() {
-    return Center(
-      child: Text(
-        "Profile Section - Coming Soon",
-        style: GoogleFonts.roboto(
-          fontSize: 18,
-          color: AppColors.primaryGreen,
-        ),
+Widget _buildProfileSection(BuildContext context) {
+  return ListTile(
+    leading: const Icon(Icons.person, color: AppColors.primaryGreen),
+    title: Text(
+      "View Profile",
+      style: GoogleFonts.roboto(
+        fontSize: 18,
+        color: AppColors.primaryGreen,
       ),
-    );
-  }
+    ),
+    trailing: const Icon(Icons.chevron_right, color: AppColors.primaryGreen),
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ProfileScreen()),
+      );
+    },
+  );
+}
 
   BottomNavigationBar _buildBottomNavigationBar() {
     return BottomNavigationBar(

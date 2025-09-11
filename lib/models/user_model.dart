@@ -8,9 +8,12 @@ class UserModel {
   final String? profilePictureUrl;
   final DateTime createdAt;
   DateTime updatedAt;
-  final int? skillLevel;
+  final int? skillLevel; // 0-3: Beginner to Professional
   final String? playingStyle;
   final String? favoriteCourt;
+  final bool? trainingReminders;
+  final bool? progressNotifications;
+  final bool? emailUpdates;
 
   UserModel({
     required this.uid,
@@ -25,9 +28,12 @@ class UserModel {
     this.skillLevel,
     this.playingStyle,
     this.favoriteCourt,
+    this.trainingReminders = true,
+    this.progressNotifications = true,
+    this.emailUpdates = false,
   });
 
-  // Convert UserModel to Map
+  // Convert to Map (update to include new fields)
   Map<String, dynamic> toMap() {
     return {
       'uid': uid,
@@ -42,10 +48,13 @@ class UserModel {
       'skillLevel': skillLevel,
       'playingStyle': playingStyle,
       'favoriteCourt': favoriteCourt,
+      'trainingReminders': trainingReminders,
+      'progressNotifications': progressNotifications,
+      'emailUpdates': emailUpdates,
     };
   }
 
-  // Create UserModel from Map
+  // Create from Map (update to include new fields)
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       uid: map['uid'],
@@ -60,10 +69,13 @@ class UserModel {
       skillLevel: map['skillLevel'],
       playingStyle: map['playingStyle'],
       favoriteCourt: map['favoriteCourt'],
+      trainingReminders: map['trainingReminders'] ?? true,
+      progressNotifications: map['progressNotifications'] ?? true,
+      emailUpdates: map['emailUpdates'] ?? false,
     );
   }
 
-  // Copy with method for updating fields
+  // Copy with method (update to include new fields)
   UserModel copyWith({
     String? firstName,
     String? lastName,
@@ -73,6 +85,9 @@ class UserModel {
     int? skillLevel,
     String? playingStyle,
     String? favoriteCourt,
+    bool? trainingReminders,
+    bool? progressNotifications,
+    bool? emailUpdates,
   }) {
     return UserModel(
       uid: uid,
@@ -83,10 +98,13 @@ class UserModel {
       contactNumber: contactNumber ?? this.contactNumber,
       profilePictureUrl: profilePictureUrl ?? this.profilePictureUrl,
       createdAt: createdAt,
-      updatedAt: updatedAt,
+      updatedAt: DateTime.now(),
       skillLevel: skillLevel ?? this.skillLevel,
       playingStyle: playingStyle ?? this.playingStyle,
       favoriteCourt: favoriteCourt ?? this.favoriteCourt,
+      trainingReminders: trainingReminders ?? this.trainingReminders,
+      progressNotifications: progressNotifications ?? this.progressNotifications,
+      emailUpdates: emailUpdates ?? this.emailUpdates,
     );
   }
 }
